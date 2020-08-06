@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onShowCustomView(View view, CustomViewCallback callback) {
 
-            // if a view already exists then immediately terminate the new one
+            // If a view already exists then immediately terminate the new one
             if (mCustomView != null) {
                 callback.onCustomViewHidden();
                 return;
@@ -112,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
             webView.setVisibility(View.GONE);
             customViewContainer.setVisibility(View.VISIBLE);
             customViewContainer.addView(view);
-//            customViewCallback = callback;
         }
 
         @Override
@@ -127,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onHideCustomView() {
-            super.onHideCustomView();    //To change body of overridden methods use File | Settings | File Templates.
+            super.onHideCustomView();
             if (mCustomView == null)
                 return;
 
@@ -139,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
 
             // Remove the custom view from its container.
             customViewContainer.removeView(mCustomView);
-//            customViewCallback.onCustomViewHidden();
 
             mCustomView = null;
         }
