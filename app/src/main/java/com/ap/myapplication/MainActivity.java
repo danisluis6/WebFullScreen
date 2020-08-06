@@ -1,7 +1,7 @@
 package com.ap.myapplication;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +39,11 @@ public class MainActivity extends AppCompatActivity {
         webView.getSettings().setAppCacheEnabled(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setSaveFormData(true);
-        webView.loadUrl("https://player.vimeo.com/video/445092155");
+
+        String htmlPre1 = "<!DOCTYPE html> <html> <head> <style> * { margin: 0; padding: 0; } html, body { width: 100%; height: 100%; }</style></head>";
+        String htmlBody1 = "<body> <div style=\"padding:56.25% 0 0 0;position:relative;\"><iframe src=\"https://player.vimeo.com/video/445092155\" frameborder=\"0\" allow=\"autoplay; fullscreen\" allowfullscreen style=\"position:absolute;top:0;left:0;width:100%;height:100%;\"></iframe></div> </body> </html>";
+        String encodedHtml = Base64.encodeToString((htmlPre1+htmlBody1).getBytes(), Base64.NO_PADDING);
+        webView.loadData(encodedHtml, "text/html", "base64");
 
     }
 
@@ -89,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     class myWebChromeClient extends WebChromeClient {
-        private Bitmap mDefaultVideoPoster;
         private View mVideoProgressView;
 
         @Override
@@ -109,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             webView.setVisibility(View.GONE);
             customViewContainer.setVisibility(View.VISIBLE);
             customViewContainer.addView(view);
-            customViewCallback = callback;
+//            customViewCallback = callback;
         }
 
         @Override
@@ -136,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
             // Remove the custom view from its container.
             customViewContainer.removeView(mCustomView);
-            customViewCallback.onCustomViewHidden();
+//            customViewCallback.onCustomViewHidden();
 
             mCustomView = null;
         }
